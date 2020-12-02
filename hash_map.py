@@ -127,15 +127,30 @@ class HashMap:
 
     def resize_table(self, new_capacity: int) -> None:
         """
-        TODO: Write this implementation
+        Changes the capacity of the internal hash table.
         """
-        pass
+        new_dynamic_array, new_linked_list = DynamicArray(), LinkedList()   # New Dynamic Array and Linked List.
+        if new_capacity < 1:  # If new_capacity is less than 1, do nothing.
+            return
+        else:
+            for i in range(new_capacity):  # Sets the new capacity n amount of times based on new_capacity.
+                new_dynamic_array.append(LinkedList())
+            for i in range(0, self.capacity):
+                for j in self.buckets.get_at_index(i):  # Gets the nodes and inserts them on Linked List.
+                    new_linked_list.insert(j.key, j.value)
+            self.size, self.capacity, self.buckets = 0, new_capacity, new_dynamic_array  # Sets new values for fields.
+            for node in new_linked_list:  # Places the nodes on the dynamic array.
+                self.put(node.key, node.value)
 
     def get_keys(self) -> DynamicArray:
         """
-        TODO: Write this implementation
+        Returns a DynamicArray that contains all keys stores in your hash map.
         """
-        return DynamicArray()
+        dynamic_array = DynamicArray()  # Creates a new Dynamic Array to be used for keys.
+        for i in range(0, self.buckets.length()):  # Iterates through the items on the table.
+            for j in self.buckets.get_at_index(i):  # Gets the key.
+                dynamic_array.append(j.key)  # Appends key to the new dynamic array.
+        return dynamic_array
 
 
 # BASIC TESTING
