@@ -1,7 +1,7 @@
 # Course: CS261 - Data Structures
 # Assignment: 5
-# Student:
-# Description:
+# Student: Leonel Garay
+# Description: Implement the MinHeap class by completing provided skeleton code.
 
 
 # Import pre-written DynamicArray and LinkedList classes
@@ -46,27 +46,43 @@ class MinHeap:
 
     def add(self, node: object) -> None:
         """
-        TODO: Write this implementation
+        Adds a new object to the MinHeap maintaining heap property.
         """
-        pass
+        self.heap.append(node)  # Appends node to heap.
+        self.add_helper(self.heap.length() - 1)  # Starts add_helper.
+
+    def add_helper(self, index):
+        """
+        Helper for add function. Identifies where to place the new node and trades places with parent if greater.
+        """
+        parent = ((index - 1) // 2)  # Identifies parent.
+        while self.heap.get_at_index(index) < self.heap.get_at_index(parent) and index != 0:  # If index is less than
+            # parent and not equal to 0.
+            self.heap.swap(parent, index)  # Swap values.
+            index = parent  # Updates value index to parent.
+            parent = ((index - 1) // 2)  # Identifies the new parent.
+        return
 
     def get_min(self) -> object:
         """
-        TODO: Write this implementation
+        Returns an object with a minimum key without removing it from the heap.
         """
-        return None
+        if self.is_empty() is True:  # Raises exception if heap is empty.
+            raise MinHeapException()
+        return self.heap.get_at_index(0)  # Returns index 0.
 
     def remove_min(self) -> object:
         """
         TODO: Write this implementation
         """
+        if self.is_empty():
+            raise MinHeapException()
         return None
 
     def build_heap(self, da: DynamicArray) -> None:
         """
         TODO: Write this implementation
         """
-        pass
 
 
 # BASIC TESTING
@@ -88,29 +104,26 @@ if __name__ == '__main__':
         h.add(value)
         print(h)
 
-
     print("\nPDF - get_min example 1")
     print("-----------------------")
     h = MinHeap(['fish', 'bird'])
     print(h)
     print(h.get_min(), h.get_min())
 
-
-    print("\nPDF - remove_min example 1")
-    print("--------------------------")
-    h = MinHeap([1, 10, 2, 9, 3, 8, 4, 7, 5, 6])
-    while not h.is_empty():
-        print(h, end=' ')
-        print(h.remove_min())
-
-
-    print("\nPDF - build_heap example 1")
-    print("--------------------------")
-    da = DynamicArray([100, 20, 6, 200, 90, 150, 300])
-    h = MinHeap(['zebra', 'apple'])
-    print(h)
-    h.build_heap(da)
-    print(h)
-    da.set_at_index(0, 500)
-    print(da)
-    print(h)
+    # print("\nPDF - remove_min example 1")
+    # print("--------------------------")
+    # h = MinHeap([1, 10, 2, 9, 3, 8, 4, 7, 5, 6])
+    # while not h.is_empty():
+    #     print(h, end=' ')
+    #     print(h.remove_min())
+    #
+    # print("\nPDF - build_heap example 1")
+    # print("--------------------------")
+    # da = DynamicArray([100, 20, 6, 200, 90, 150, 300])
+    # h = MinHeap(['zebra', 'apple'])
+    # print(h)
+    # h.build_heap(da)
+    # print(h)
+    # da.set_at_index(0, 500)
+    # print(da)
+    # print(h)

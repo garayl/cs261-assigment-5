@@ -31,7 +31,6 @@ def hash_function_2(key: str) -> int:
         index += 1
     return hash
 
-
 class HashMap:
     def __init__(self, capacity: int, function) -> None:
         """
